@@ -38,7 +38,8 @@ services:
     build: ../webstore/client
     links:
       - webstoreapi
-    volumes: ./public/images:./public/images
+    volumes:
+      - ./public/images:./public/images
     depends_on: 
       - webstoreapi
 
