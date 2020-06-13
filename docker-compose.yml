@@ -51,7 +51,7 @@ services:
     depends_on: 
       - mongo
     volumes:
-      - ./images:~/projects/webstore/client/public/images
+      - /root/projects/webstore/client/public/images:/images
     environment: 
       - MONGODB_URI=mongo/webstore
       - SESS_SECRET=session!secret
