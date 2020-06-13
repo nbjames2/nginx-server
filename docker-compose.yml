@@ -39,7 +39,7 @@ services:
     links:
       - webstoreapi
     volumes:
-      - ./public/images:./public/images
+      - /root/projects/webstore/client/public/images:/public/images
     depends_on: 
       - webstoreapi
 
