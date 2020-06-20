@@ -83,8 +83,9 @@ services:
       - SEND_GRID_KEY=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
       - SPOTIFY_CLIENT_ID=6ab4c4ef356141da8fd2328435d7c6e1
       - SPOTIFY_CLIENT_SECRET=2b8f860292ab4eb0ac3542ac3d28bbe0
-    ports:
-      - 5001:5000
+      - PORT=5000
+      - NODE_ENV=production
+      - DATABASE_URL='postgres://postgres:TnDY2Mg7dvrZeWW452ZkKYc6UF6ymVr9@postgres/notifier_prod'
 
   postgres:
     networks:

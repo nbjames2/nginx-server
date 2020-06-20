@@ -1,0 +1,102 @@
+version: "3.4"
+
+networks:
+  server:
+    driver: bridge
+
+services:
+  # reverseproxy:
+  #   networks:
+  #     - server
+  #   depends_on:
+  #     # - portfolio
+  #     # - chat
+  #     # - webstoreclient
+  #     - music
+  #   build: .
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   restart: always
+
+  # portfolio:
+  #   networks:
+  #     - server
+  #   restart: always
+  #   build: ../portfolio
+
+  # chat:
+  #   networks:
+  #     - server
+  #   restart: always
+  #   build: ../Nick-Chat
+    
+  # webstoreclient:
+  #   networks:
+  #     - server
+  #   restart: always
+  #   build: ../webstore/client
+  #   links:
+  #     - webstoreapi
+  #   volumes:
+  #     - /root/projects/webstore/client/public/images:/public/images
+  #   depends_on: 
+  #     - webstoreapi
+
+  # webstoreapi:
+  #   networks:
+  #     - server
+  #   restart: always
+  #   build: ../webstore/api
+  #   depends_on: 
+  #     - mongo
+  #   volumes:
+  #     - /root/projects/webstore/client/public/images:/images
+  #   environment: 
+  #     - MONGODB_URI=mongo/webstore
+  #     - SESS_SECRET=session!secret
+  #     - SESS_NAME=session
+  #     - NODE_ENV=production
+  #     - TEST_STRIPE_PUBLIC_KEY=pk_test_ZsI61lf4ShVcQxUfyEuwXAil001sxzJmMh
+  #     - TEST_STRIPE_SECRET_KEY=sk_test_HxyAAa6zn1PYlnqzEto3rxYK00Mxet9Llp
+
+  # mongo:
+  #   networks:
+  #     - server
+  #   image: mongo:4.2-bionic
+  #   environment:
+  #     - MONGO_DATA_DIR=/data/db
+  #     - MONGO_LOG_DIR=/dev/null
+  #   volumes:
+  #     - ./.data/mongo:/data/db
+  #   command: mongod --quiet --logpath=/dev/null
+  
+  music:
+    networks:
+      - server
+    restart: always
+    build: ../musicNotifier
+    depends_on:
+      - postgres
+    environment:
+      - cookieSecret=thisisanothersecret
+      - SEND_GRID_KEY=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
+      - SPOTIFY_CLIENT_ID=6ab4c4ef356141da8fd2328435d7c6e1
+      - SPOTIFY_CLIENT_SECRET=2b8f860292ab4eb0ac3542ac3d28bbe0
+      - PORT=5000
+      - NODE_ENV=development
+      - DATABASE_URL='postgres://postgres:TnDY2Mg7dvrZeWW452ZkKYc6UF6ymVr9@postgres/notifier_prod'
+    ports:
+      - 5001:5000
+
+  postgres:
+    networks:
+      - server
+    image: postgres:10-alpine
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=TnDY2Mg7dvrZeWW452ZkKYc6UF6ymVr9
+      - POSTGRES_DB=notifier_dev
+      - PGDATA=/var/lib/postgres
+    volumes:
+      - ./.data/pgdata:/var/lib/postgres
