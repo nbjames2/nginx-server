@@ -5,43 +5,21 @@ networks:
     driver: bridge
 
 services:
-  ghostNick:
-    image: ghost:3-alpine
-    restart: always
+  reverseproxy:
+    networks:
+      - server
     depends_on:
-      - mysql
-    environment:
-      # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
-      database__client: mysql
-      database__connection__host: mysql
-      database__connection__user: root
-      database__connection__password: ajklsdg0sAjn9a93jdg
-      database__connection__database: ghostNick
-      # this url value is just an example, and is likely wrong for your environment!
-      url: http://blog.bairdjames.com
-
-  ghostDani:
-    image: ghost:3-alpine
+      - portfolio
+      - chat
+      - webstoreclient
+      - music
+      - ghostDani
+      - ghostNick
+    build: .
+    ports:
+      - 80:80
+      - 443:443
     restart: always
-    depends_on:
-      - mysql
-    environment:
-      # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
-      database__client: mysql
-      database__connection__host: mysql
-      database__connection__user: root
-      database__connection__password: ajklsdg0sAjn9a93jdg
-      database__connection__database: ghostDani
-      # this url value is just an example, and is likely wrong for your environment!
-      url: http://daniela.bairdjames.com
-
-  mysql:
-    image: mysql:5.7
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ajklsdg0sAjn9a93jdg
-    volumes:
-      - ./.data/mysql:/var/lib/mysql
 
   portfolio:
     networks:
@@ -123,19 +101,46 @@ services:
     volumes:
       - ./.data/pgdata:/var/lib/postgres
 
-  reverseproxy:
-  networks:
-    - server
-  depends_on:
-    - portfolio
-    - chat
-    - webstoreclient
-    - music
-    - ghostDani
-    - ghostNick
-  build: .
-  ports:
-    - 80:80
-    - 443:443
-  restart: always
+  ghostNick:
+    networks:
+      - server
+    image: ghost:3-alpine
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
+      database__client: mysql
+      database__connection__host: mysql
+      database__connection__user: root
+      database__connection__password: ajklsdg0sAjn9a93jdg
+      database__connection__database: ghostNick
+      # this url value is just an example, and is likely wrong for your environment!
+      url: http://blog.bairdjames.com
 
+  ghostDani:
+    networks:
+      - server
+    image: ghost:3-alpine
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
+      database__client: mysql
+      database__connection__host: mysql
+      database__connection__user: root
+      database__connection__password: ajklsdg0sAjn9a93jdg
+      database__connection__database: ghostDani
+      # this url value is just an example, and is likely wrong for your environment!
+      url: http://daniela.bairdjames.com
+
+  mysql:
+    networks:
+      - server
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ajklsdg0sAjn9a93jdg
+    volumes:
+      - ./.data/mysql:/var/lib/mysql
