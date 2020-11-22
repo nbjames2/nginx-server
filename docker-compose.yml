@@ -98,3 +98,45 @@ services:
       - PGDATA=/var/lib/postgres
     volumes:
       - ./.data/pgdata:/var/lib/postgres
+
+  ghostNick:
+    image: ghost:3-alpine
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - 2368:2368
+    environment:
+      # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
+      database__client: mysql
+      database__connection__host: mysql
+      database__connection__user: root
+      database__connection__password: ajklsdg0sAjn9a93jdg
+      database__connection__database: ghostNick
+      # this url value is just an example, and is likely wrong for your environment!
+      url: http://blog.bairdjames.com
+  
+  ghostDani:
+    image: ghost:3-alpine
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - 2369:2368
+    environment:
+      # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
+      database__client: mysql
+      database__connection__host: mysql
+      database__connection__user: root
+      database__connection__password: ajklsdg0sAjn9a93jdg
+      database__connection__database: ghostDani
+      # this url value is just an example, and is likely wrong for your environment!
+      url: http://daniela.bairdjames.com
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ajklsdg0sAjn9a93jdg
+    volumes:
+      - ./.data/mysql:/var/lib/mysql
