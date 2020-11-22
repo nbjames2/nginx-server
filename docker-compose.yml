@@ -104,8 +104,6 @@ services:
     restart: always
     depends_on:
       - mysql
-    ports:
-      - 2368:2368
     environment:
       # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
       database__client: mysql
@@ -121,8 +119,6 @@ services:
     restart: always
     depends_on:
       - mysql
-    ports:
-      - 2369:2368
     environment:
       # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
       database__client: mysql
