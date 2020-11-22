@@ -13,6 +13,8 @@ services:
       - chat
       - webstoreclient
       - music
+      - ghostDani
+      - ghostNick
     build: .
     ports:
       - 80:80
