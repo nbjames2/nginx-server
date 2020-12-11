@@ -32,6 +32,12 @@ services:
       - server
     restart: always
     build: ../Nick-Chat
+  
+  tabledemo:
+    networks:
+      - server
+    restart: always
+    build: ../tableDemo
     
   webstoreclient:
     networks:
