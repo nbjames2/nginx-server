@@ -68,6 +68,28 @@ services:
       - TEST_STRIPE_PUBLIC_KEY=pk_test_ZsI61lf4ShVcQxUfyEuwXAil001sxzJmMh
       - TEST_STRIPE_SECRET_KEY=sk_test_HxyAAa6zn1PYlnqzEto3rxYK00Mxet9Llp
 
+  itemlistapi:
+    networks:
+      - server
+    build: ../itemlist-demo/api
+    restart: always
+    depends_on:
+      - mongo
+    environment:
+      - MONGODB_URI=mongo/itemlist
+      - PORT=4000
+      - SOURCE=http://itemlist.bairdjames.com
+
+  itemlistclient:
+    networks:
+      - server
+    restart: always
+    build: ../itemlist-demo/client
+    links:
+      - itemlistapi
+    depends_on:
+      - itemlistapi
+
   mongo:
     networks:
       - server
