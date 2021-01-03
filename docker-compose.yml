@@ -80,7 +80,7 @@ services:
       - PORT=4000
       - SOURCE=http://itemlist.bairdjames.com
 
-  itemlistclient:
+  itemlist:
     networks:
       - server
     restart: always
