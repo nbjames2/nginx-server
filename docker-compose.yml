@@ -12,6 +12,9 @@ services:
       - portfolio
       - chat
       - webstoreclient
+      - trackerclient
+      - tabledemo
+      - itemdemo
       - music
       - ghostDani
       - ghostNick
