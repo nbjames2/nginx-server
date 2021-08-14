@@ -14,7 +14,7 @@ services:
       - webstoreclient
       - trackerclient
       - tabledemo
-      - itemdemo
+      - itemlist
       - music
       - ghostDani
       - ghostNick
