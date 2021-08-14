@@ -90,6 +90,30 @@ services:
     depends_on:
       - itemlistapi
 
+  trackerapi:
+    networks:
+      - server
+    build: ../crypto-tracker/api
+    restart: always
+    depends_on:
+      - mongo
+    environment:
+      - MONGODB_URI=mongo/tracker
+      - NODE_ENV=production
+      - PORT=4000
+      - SESS_SECRET=do not lick the spoons
+      - SESS_NAME=user-session
+
+  trackerclient:
+    networks:
+      - server
+    restart: always
+    build: ../crypto-tracker/client
+    links:
+      - trackerapi
+    depends_on:
+      - trackerapi
+
   mongo:
     networks:
       - server
