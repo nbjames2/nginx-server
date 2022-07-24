@@ -1,4 +1,5 @@
 FROM nginx:1.18-alpine
+RUN apk add certbot certbot-nginx
 RUN cd etc/nginx/conf.d && rm -r default.conf && mkdir sites-available sites-enabled
 COPY projects.conf /etc/nginx/conf.d/sites-available
 RUN cd etc/nginx/conf.d/sites-enabled && ln -s ../sites-available/projects.conf .

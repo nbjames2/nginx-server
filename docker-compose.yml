@@ -23,6 +23,8 @@ services:
       - 80:80
       - 443:443
     restart: always
+    volumes:
+      - ./.data/ssl:/etc/letsencrypt
 
   portfolio:
     networks:
@@ -92,6 +94,8 @@ services:
       - itemlistapi
     depends_on:
       - itemlistapi
+    environment:
+      - REACT_APP_BASE_SERVER=itemlistapi:4000
 
   trackerapi:
     networks:
