@@ -16,7 +16,6 @@ services:
       - tabledemo
       - itemlist
       - music
-      - ghostDani
       - ghostNick
     build: .
     ports:
@@ -96,6 +95,13 @@ services:
       - itemlistapi
     environment:
       - REACT_APP_BASE_SERVER=itemlistapi:4000
+      - REACT_APP_FIREBASE_APIKEY=
+      - REACT_APP_FIREBASE_AUTHDOMAIN=
+      - REACT_APP_FIREBASE_DATABASEURL=
+      - REACT_APP_FIREBASE_PROJECTID=
+      - REACT_APP_FIREBASE_STORAGEBUCKET=
+      - REACT_APP_FIREBASE_MESSAGINGSENDERID=
+      - REACT_APP_FIREBASE_APPID=
 
   trackerapi:
     networks:
@@ -176,23 +182,6 @@ services:
       database__connection__database: ghostNick
       # this url value is just an example, and is likely wrong for your environment!
       url: http://blog.bairdjames.com
-
-  ghostDani:
-    networks:
-      - server
-    image: ghost:3-alpine
-    restart: always
-    depends_on:
-      - mysql
-    environment:
-      # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
-      database__client: mysql
-      database__connection__host: mysql
-      database__connection__user: root
-      database__connection__password: ajklsdg0sAjn9a93jdg
-      database__connection__database: ghostDani
-      # this url value is just an example, and is likely wrong for your environment!
-      url: http://daniela.bairdjames.com
 
   mysql:
     networks:
