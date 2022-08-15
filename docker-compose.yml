@@ -82,7 +82,7 @@ services:
     environment:
       - MONGODB_URI=mongo/itemlist
       - PORT=4000
-      - SOURCE=http://itemlist.bairdjames.com
+      - SOURCE=https://itemlist.bairdjames.com
 
   itemlist:
     networks:
@@ -127,10 +127,30 @@ services:
     depends_on:
       - trackerapi
 
+  gitlab:
+    image: 'gitlab/gitlab-ee:latest'
+    restart: always
+    hostname: 'git.bairdjames.com'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://git.bairdjames.com'
+        # Add any other gitlab.rb configuration here, each on its own line
+    ports:
+      - '80:80'
+      - '443:443'
+      - '22:22'
+    volumes:
+      - './.data/gitlab/config:/etc/gitlab'
+      - './.data/gitlab/logs:/var/log/gitlab'
+      - './.data/gitlab/data:/var/opt/gitlab'
+    shm_size: '256m'
+
   mongo:
     networks:
       - server
     image: mongo:4.2-bionic
+    ports:
+      - 27017:27017
     environment:
       - MONGO_DATA_DIR=/data/db
       - MONGO_LOG_DIR=/dev/null
