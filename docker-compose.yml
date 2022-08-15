@@ -132,7 +132,6 @@ services:
       - server
     image: 'gitlab/gitlab-ee:latest'
     restart: always
-    hostname: 'git.bairdjames.com'
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://git.bairdjames.com'
