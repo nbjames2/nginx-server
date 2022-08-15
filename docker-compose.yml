@@ -128,6 +128,8 @@ services:
       - trackerapi
 
   gitlab:
+    networks:
+      - server
     image: 'gitlab/gitlab-ee:latest'
     restart: always
     hostname: 'git.bairdjames.com'
