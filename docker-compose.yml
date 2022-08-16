@@ -134,10 +134,10 @@ services:
       - USER_UID=0
       - USER_GID=0
       - GITEA__database__DB_TYPE=postgres
-+     - GITEA__database__HOST=postgres:5432
-+     - GITEA__database__NAME=gitea
-+     - GITEA__database__USER=postgres
-+     - GITEA__database__PASSWD=TnDY2Mg7dvrZeWW452ZkKYc6UF6ymVr9
+      - GITEA__database__HOST=postgres:5432
+      - GITEA__database__NAME=gitea
+      - GITEA__database__USER=postgres
+      - GITEA__database__PASSWD=TnDY2Mg7dvrZeWW452ZkKYc6UF6ymVr9
     restart: always
     networks:
       - server
@@ -145,6 +145,8 @@ services:
       - ./.data/gitea:/data
       - ./.data/gitea/etc/timezone:/etc/timezone:ro
       - ./.data/gitea/etc/localtime:/etc/localtime:ro
+    depends_on:
+      - postgres
 
   mongo:
     networks:
