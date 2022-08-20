@@ -362,3 +362,29 @@ services:
       - taiga-front
       - taiga-back
       - taiga-events
+
+    x-environment:
+      &default-back-environment
+      
+
+  taiga-manage:
+    image: taigaio/taiga-back:latest
+    environment:
+      - POSTGRES_DB=taiga
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=TnDY2Mg7dvrZeWW452ZkKYc6UF6ymVr9
+      - POSTGRES_HOST=postgres
+      - TAIGA_SECRET_KEY=this-da-taiga-key-yo
+      # these rabbitmq settings should be the same as
+      # in taiga-rabbitmq and taiga-events services
+      - RABBITMQ_USER=taiga
+      - RABBITMQ_PASS=taiga
+      - CELERY_ENABLED="False"
+    depends_on:
+      - postgres
+    entrypoint: "python manage.py"
+    volumes:
+      - ./.data/taiga/taiga-static-data:/taiga-back/static
+      - ./.data/taiga/taiga-media-data:/taiga-back/media
+    networks:
+      - server
