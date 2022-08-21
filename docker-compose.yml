@@ -17,10 +17,7 @@ services:
       - itemlist
       - music
       - ghostNick
-      - taiga-async
-      - taiga-protected
-      - taiga-front
-      - taiga-events
+      - openproject
     build: .
     ports:
       - 80:80
@@ -229,3 +226,6 @@ services:
       - OPENPROJECT_SECRET_KEY_BASE=secret
       - OPENPROJECT_HOST__NAME=kanban.bairdjames.com
       - OPENPROJECT_HTTPS=false
+    volumes:
+      - ./.data/openproject/pgdata:/var/openproject/pgdata
+      - ./.data/openproject/assets:/var/openproject/assets
