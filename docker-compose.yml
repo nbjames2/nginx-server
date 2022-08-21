@@ -18,8 +18,10 @@ services:
       - itemlist
       - music
       - ghostNick
-      - taiga-gateway
       - taiga-async
+      - taiga-protected
+      - taiga-front
+      - taiga-events
     build: .
     ports:
       - 80:80
@@ -313,6 +315,8 @@ services:
       - TAIGA_URL=https://kanban.bairdjames.com
       - TAIGA_WEBSOCKETS_URL=ws://kanban.bairdjames.com
       - TAIGA_SUBPATH=""
+    volumes:
+      ./taigaconf.json:/usr/share/nginx/html/conf.json
     networks:
       - server
 
