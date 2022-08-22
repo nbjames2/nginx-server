@@ -17,7 +17,7 @@ services:
       - itemlist
       - music
       - ghostNick
-      - openproject
+      - wekan
     build: .
     ports:
       - 80:80
@@ -800,8 +800,9 @@ services:
       # - WAIT_SPINNER=Bounce
       #---------------------------------------------------------------------
     depends_on:
-      - wekandb
+      - mongo
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./.data/wekan/wekan-files:/data:rw
+      - ./.data/wekan/attachments:/data/attachments
 
