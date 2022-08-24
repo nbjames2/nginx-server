@@ -153,8 +153,6 @@ services:
     networks:
       - server
     image: mongo:4.2-bionic
-    ports:
-      - 27017:27017
     environment:
       - MONGO_DATA_DIR=/data/db
       - MONGO_LOG_DIR=/dev/null
@@ -230,6 +228,32 @@ services:
   #     - ./.data/openproject/pgdata:/var/openproject/pgdata
   #     - ./.data/openproject/assets:/var/openproject/assets
 
+  wekandb:
+    #-------------------------------------------------------------------------------------
+    # ==== MONGODB AND METEOR VERSION ====
+    # a) mongodb latest, like 3.2 - 4.4 or newer https://hub.docker.com/_/mongo?tab=description
+    # 2020-12-03:
+    # - Mongo image copied from Docker Hub mongo:4.4.2-bionic to Quay
+    #   to avoid Docker Hub rate limits.
+    # Quay image does work:
+    #   image: quay.io/wekan/mongo:4.4.2-bionic
+    # Docker Hub MongoDB image does work:
+    image: mongo:5
+    #-------------------------------------------------------------------------------------
+    container_name: wekan-db
+    restart: always
+    # command: mongod --oplogSize 128
+    # Syslog: mongod --syslog --oplogSize 128 --quiet
+    # Disable MongoDB logs:
+    command: mongod --logpath /dev/null --oplogSize 128 --quiet
+    networks:
+      - server
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./.data/wekan/wekan-db:/data/db
+      - ./.data/wekan/wekan-db-dump:/dump
+
   wekan:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
@@ -263,7 +287,7 @@ services:
       - WRITABLE_PATH=/data
       #-----------------------------------------------------------------
       # ==== MONGO_URL ====
-      - MONGO_URL=mongodb://mongo:27017/wekan
+      - MONGO_URL=mongodb://wekandb:27017/wekan
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====
       # Change ROOT_URL to your real Wekan URL, for example:
@@ -276,7 +300,7 @@ services:
       #  - http://example.com
       #  - http://boards.example.com
       #  - http://192.168.1.100    <=== using at local LAN
-      - ROOT_URL=http://kanban.bairdjames.com  #   <=== using only at same laptop/desktop where Wekan is installed
+      - ROOT_URL=https://kanban.bairdjames.com  #   <=== using only at same laptop/desktop where Wekan is installed
       #---------------------------------------------------------------
       # ==== EMAIL SETTINGS ====
       # Email settings are only at MAIL_URL and MAIL_FROM.
