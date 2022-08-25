@@ -37,13 +37,13 @@ services:
       - server
     restart: always
     build: ../Nick-Chat
-  
+
   tabledemo:
     networks:
       - server
     restart: always
     build: ../tableDemo
-    
+
   webstoreclient:
     networks:
       - server
@@ -159,7 +159,7 @@ services:
     volumes:
       - ./.data/mongo:/data/db
     command: mongod --quiet --logpath=/dev/null
-  
+
   music:
     networks:
       - server
@@ -216,9 +216,7 @@ services:
       - ./.data/mysql:/var/lib/mysql
 
   wekan-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: ../wekan
     container_name: wekan-app
     security_opt:
       - seccomp:unconfined
