@@ -215,7 +215,7 @@ services:
     volumes:
       - ./.data/mysql:/var/lib/mysql
 
-  wekan:
+  wekan-app:
     build:
       context: .
       dockerfile: Dockerfile
