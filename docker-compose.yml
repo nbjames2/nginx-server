@@ -17,7 +17,7 @@ services:
       - itemlist
       - music
       - ghostNick
-      - wekan
+      - wekan-app
     build: .
     ports:
       - 80:80
