@@ -17,7 +17,6 @@ services:
       - itemlist
       - music
       - ghostNick
-      - wekan-app
     build: .
     ports:
       - 80:80
@@ -51,8 +50,6 @@ services:
     build: ../webstore/client
     links:
       - webstoreapi
-    volumes:
-      - /root/projects/webstore/client/public/images:/public/images
     depends_on: 
       - webstoreapi
 
@@ -64,14 +61,16 @@ services:
     depends_on: 
       - mongo
     volumes:
-      - /root/projects/webstore/client/public/images:/images
-    environment: 
+      - ./.data/webstore/images:/api/images
+    environment:
+      - PORT=5000
       - MONGODB_URI=mongo/webstore
       - SESS_SECRET=session!secret
       - SESS_NAME=session
       - NODE_ENV=production
       - TEST_STRIPE_PUBLIC_KEY=pk_test_ZsI61lf4ShVcQxUfyEuwXAil001sxzJmMh
       - TEST_STRIPE_SECRET_KEY=sk_test_HxyAAa6zn1PYlnqzEto3rxYK00Mxet9Llp
+      - CLIENT_URL='https://store.bairdjames.com'
 
   itemlistapi:
     networks:
