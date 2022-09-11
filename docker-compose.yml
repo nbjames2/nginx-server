@@ -70,7 +70,7 @@ services:
       - NODE_ENV=production
       - TEST_STRIPE_PUBLIC_KEY=pk_test_ZsI61lf4ShVcQxUfyEuwXAil001sxzJmMh
       - TEST_STRIPE_SECRET_KEY=sk_test_HxyAAa6zn1PYlnqzEto3rxYK00Mxet9Llp
-      - CLIENT_URL='https://store.bairdjames.com'
+      - CLIENT_URL=https://store.bairdjames.com/
 
   itemlistapi:
     networks:
