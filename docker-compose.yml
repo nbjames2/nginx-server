@@ -192,8 +192,6 @@ services:
       - TRUSTED_PROXIES=**
     volumes:
       - ./.data/firefly:/var/www/html/storage/upload
-    ports:
-      - 80:8080
 
   postgres:
     networks:
