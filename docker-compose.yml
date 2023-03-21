@@ -10,13 +10,13 @@ services:
       - server
     depends_on:
       - portfolio
+      - upwork
       - chat
       - webstoreclient
       - trackerclient
       - tabledemo
       - itemlist
       - music
-      - ghostNick
     build: .
     ports:
       - 80:80
