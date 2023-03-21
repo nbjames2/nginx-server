@@ -30,6 +30,12 @@ services:
       - server
     restart: always
     build: ../portfolio
+  
+  upwork:
+    networks:
+      - server
+    restart: always
+    build: ../upwork-portfolio
 
   chat:
     networks:
