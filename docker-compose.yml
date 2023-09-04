@@ -10,7 +10,6 @@ services:
       - server
     depends_on:
       - portfolio
-      - upwork
       - chat
       - webstoreclient
       - tabledemo
