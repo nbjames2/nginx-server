@@ -16,7 +16,6 @@ services:
       - itemlist
       - music
       - gitea
-      - firefly
     build: .
     ports:
       - 80:80
