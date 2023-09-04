@@ -31,12 +31,6 @@ services:
       - server
     restart: always
     build: ../portfolio
-  
-  upwork:
-    networks:
-      - server
-    restart: always
-    build: ../upwork-portfolio
 
   chat:
     networks:
@@ -182,23 +176,23 @@ services:
       - NODE_ENV=production
       - DATABASE_URL='postgres://postgres:TnDY2Mg7dvrZeWW452ZkKYc6UF6ymVr9@postgres/notifier_prod'
 
-  firefly:
-    networks:
-      - server
-    restart: always
-    image: fireflyiii/core:latest
-    environment:
-      - APP_KEY=b4pgqi9NFOE79XDJ1YObTHBLb46B3kpj
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_CONNECTION=pgsql
-      - DB_DATABASE=firefly
-      - DB_USERNAME=postgres
-      - DB_PASSWORD=TnDY2Mg7dvrZeWW452ZkKYc6UF6ymVr9
-      - APP_URL=https://finance.bairdjames.com
-      - TRUSTED_PROXIES=**
-    volumes:
-      - ./.data/firefly:/var/www/html/storage/upload
+  # firefly:
+  #   networks:
+  #     - server
+  #   restart: always
+  #   image: fireflyiii/core:latest
+  #   environment:
+  #     - APP_KEY=b4pgqi9NFOE79XDJ1YObTHBLb46B3kpj
+  #     - DB_HOST=postgres
+  #     - DB_PORT=5432
+  #     - DB_CONNECTION=pgsql
+  #     - DB_DATABASE=firefly
+  #     - DB_USERNAME=postgres
+  #     - DB_PASSWORD=TnDY2Mg7dvrZeWW452ZkKYc6UF6ymVr9
+  #     - APP_URL=https://finance.bairdjames.com
+  #     - TRUSTED_PROXIES=**
+  #   volumes:
+  #     - ./.data/firefly:/var/www/html/storage/upload
 
   postgres:
     networks:
