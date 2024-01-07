@@ -70,6 +70,26 @@ services:
       - TEST_STRIPE_PUBLIC_KEY=pk_test_ZsI61lf4ShVcQxUfyEuwXAil001sxzJmMh
       - TEST_STRIPE_SECRET_KEY=sk_test_HxyAAa6zn1PYlnqzEto3rxYK00Mxet9Llp
       - CLIENT_URL=https://store.bairdjames.com/
+  
+  priceclient:
+    networks:
+      - server
+    restart: always
+    build: ../price-baker/client
+    links:
+      - priceapi
+    depends_on:
+      - priceapi
+
+  priceapi:
+    networks:
+      - server
+    restart: always
+    build: ../price-baker/api
+    depends_on:
+      - mongo
+    environment:
+      - JWT_SECRET=This-is-how-secrets-are-made
 
   itemlistapi:
     networks:
